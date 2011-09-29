@@ -14,13 +14,21 @@ class Game:
         frame=0
         
         while frame<10:
-            if self.is_spare(frame_index):
+            if self.is_strike(frame_index):
+                _score+=10+self.rolls[frame_index+1]+self.rolls[frame_index+2]
+                frame_index+=1
+            elif self.is_spare(frame_index):
                 _score+=10+self.rolls[frame_index+2]
+                frame_index+=2
             else:
                 _score+=self.rolls[frame_index]+self.rolls[frame_index+1]
-            frame_index+=2
+                frame_index+=2
+            
             frame+=1
         return _score
+        
+    def is_strike(self,  frame_index):
+        return self.rolls[frame_index]==10
         
     def is_spare(self,  frame_index):
         return self.rolls[frame_index]+self.rolls[frame_index+1] == 10
